@@ -3,7 +3,6 @@ import { TouchableOpacity, View, Image } from "react-native";
 import { styles } from "./styles";
 
 const Checkbox = ({checked, onCheck}) => {
-    console.log(checked);
     return (
         <TouchableOpacity activeOpacity={0.6} style={styles.container} onPress={() => onCheck(!checked)}>
             {checked ? (

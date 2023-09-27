@@ -19,6 +19,7 @@ const SignUp = () => {
                 <Checkbox checked={checked} onCheck={setChecked}></Checkbox>
                 <Text style={styles.agreeText}>I agree with <Text style={styles.boldText}>Terms</Text> & <Text style={styles.boldText}>Privacy</Text></Text>
             </View>
+            <Button style={styles.button} title="Sign Up"></Button>
         </View>
     )
 }

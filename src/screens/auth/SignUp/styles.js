@@ -3,15 +3,12 @@ import { colors } from "../../../utils/colors"
 
 export const styles = StyleSheet.create( {
     container: {
-        display: "flex",
-        flexDirection: "column",
         padding: 24
     },
 
     agreeRow: {
         flexDirection: 'row',
         alignItems: "center",
-
     },
 
     agreeText: {
@@ -21,5 +18,10 @@ export const styles = StyleSheet.create( {
 
     boldText: {
         fontWeight: "bold",
+    },
+
+    button: {
+        marginVertical: 20,
+        marginLeft: 0
     }
 })
