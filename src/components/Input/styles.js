@@ -3,8 +3,7 @@ import { colors } from "../../utils/colors";
 
 export const styles = StyleSheet.create({
     container: {
-        marginBottom: 20,
-        marginHorizontal: 35
+        marginBottom: 20
     },
     inputContainer: {
         borderWidth: 1,
