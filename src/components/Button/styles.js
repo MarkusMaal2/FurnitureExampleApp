@@ -4,7 +4,8 @@ export const styles = StyleSheet.create({
         backgroundColor: '#4F63AC',
         padding: 0,
         margin: 20,
-        borderRadius: 10
+        borderRadius: 10,
+        width: "100%"
     },
 
     title: {
