@@ -6,6 +6,7 @@ import AuthHeader from "../../../components/AuthHeader";
 import { styles } from "./styles";
 import Input from "../../../components/Input";
 import Checkbox from "../../../components/Checkbox";
+import Separator from "../../../components/Separator";
 
 const SignUp = () => {
     const [checked, setChecked] = useState(true);
@@ -20,6 +21,7 @@ const SignUp = () => {
                 <Text style={styles.agreeText}>I agree with <Text style={styles.boldText}>Terms</Text> & <Text style={styles.boldText}>Privacy</Text></Text>
             </View>
             <Button style={styles.button} title="Sign Up"></Button>
+            <Separator text="Or sign up with"></Separator>
         </View>
     )
 }
