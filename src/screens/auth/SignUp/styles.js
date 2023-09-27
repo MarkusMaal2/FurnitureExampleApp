@@ -3,6 +3,7 @@ import { colors } from "../../../utils/colors"
 
 export const styles = StyleSheet.create( {
     container: {
-        color: colors.blue,
+        display: "flex",
+        flexDirection: "column",
     }
 })
