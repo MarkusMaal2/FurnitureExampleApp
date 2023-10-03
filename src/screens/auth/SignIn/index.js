@@ -10,7 +10,7 @@ import Separator from "../../../components/Separator";
 import GoogleLogin from "../../../components/GoogleLogin";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const SignUp = ({navigation}) => {
+const SignIn = ({navigation}) => {
     const [checked, setChecked] = useState(true);
 
     const onBack = () => {
@@ -20,22 +20,17 @@ const SignUp = ({navigation}) => {
     return (
         <SafeAreaView>
             <View style={styles.container}>
-                <AuthHeader onBackPress={onBack} title="Sign Up"/>
-                <Input label="Name" placeholder="John Doe"></Input>
+                <AuthHeader onBackPress={onBack} title="Sign In"/>
                 <Input label="E-mail" placeholder="example@gmail.com"></Input>
                 <Input isPassword label="Password" placeholder="**********"></Input>
-                <View style={styles.agreeRow}>
-                    <Checkbox checked={checked} onCheck={setChecked}></Checkbox>
-                    <Text style={styles.agreeText}>I agree with <Text style={styles.boldText}>Terms</Text> & <Text style={styles.boldText}>Privacy</Text></Text>
-                </View>
-                <Button style={styles.button} title="Sign Up"></Button>
-                <Separator text="Or sign up with"></Separator>
+                <Button style={styles.button} title="Sign In"></Button>
+                <Separator text="Or sign in with"></Separator>
                 <GoogleLogin/>
-                <Text style={styles.footerText}>Already have an account?&nbsp;
-                <Text style={styles.footerLink}>Sign In</Text></Text>
+                <Text style={styles.footerText}>Don't have an account?&nbsp;
+                <Text style={styles.footerLink}>Sign Up</Text></Text>
             </View>
         </SafeAreaView>
     )
 }
 
-export default SignUp;
+export default SignIn;
