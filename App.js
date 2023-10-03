@@ -1,6 +1,6 @@
 // React dependencies
 import { React, useEffect } from "react";
-import { View, Text, SafeAreaView } from "react-native";
+import { View, Text, SafeAreaView, Image } from "react-native";
 // auth components
 import Splash from "./src/screens/auth/Splash";
 import SignUp from "./src/screens/auth/SignUp";
@@ -28,7 +28,23 @@ const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
   return (
-    <Tab.Navigator screenOptions={{headerShown: false}}>
+    <Tab.Navigator screenOptions={({route}) => ({
+        tabBarIcon: ({focused, color, size }) => {
+          let icon;
+          if (route.name === 'Home') {
+            icon = focused ? require('./src/assets/nav/home_active.png') : require('./src/assets/nav/home.png');
+          } else if (route.name === 'Favorites') {
+            icon = focused ? require('./src/assets/nav/favorites_active.png') : require('./src/assets/nav/favorites.png');
+          } else if (route.name === 'Profile') {
+            icon = focused ? require('./src/assets/nav/person_active.png') : require('./src/assets/nav/person.png');
+          }
+
+          return <Image style={{width: 24, height: 24}} source={icon} />;
+        },
+        headerShown: false,
+        tabBarShowLabel: false,
+        tabBarStyle: {borderTopColor: colors.lightGrey}
+    })}>
       <Tab.Screen name="Home" component={Home}></Tab.Screen>
       <Tab.Screen name="Favorites" component={Favorites}></Tab.Screen>
       <Tab.Screen name="Profile" component={Profile}></Tab.Screen>
@@ -37,7 +53,7 @@ const Tabs = () => {
 }
 
 const App = () => {
-  const isSignedIn = false;
+  const isSignedIn = true;
 
   useEffect(() => {
     GoogleSignin.configure({
