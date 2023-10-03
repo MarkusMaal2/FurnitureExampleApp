@@ -24,6 +24,8 @@ const SignUp = () => {
             <Button style={styles.button} title="Sign Up"></Button>
             <Separator text="Or sign up with"></Separator>
             <GoogleLogin/>
+            <Text style={styles.footerText}>Already have an account?&nbsp;
+            <Text style={styles.footerLink}>Sign In</Text></Text>
         </View>
     )
 }
