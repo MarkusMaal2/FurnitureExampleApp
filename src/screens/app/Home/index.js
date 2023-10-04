@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {View, Text, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "./styles";
@@ -10,9 +10,27 @@ import { products } from "../../../data/products";
 import ProductHomeItem from "../../../components/ProductHomeItem";
 
 const Home = () => {
+    const [selectedCategory, setSelectedCategory] = useState();
+    const [selectedProducts, setSelectedProducts] = useState(products);
+
+    useEffect(() => {
+        if (selectedCategory) {
+            const updatedSelectedProducts = products.filter((product) => 
+                product?.category === selectedCategory);
+            setSelectedProducts(updatedSelectedProducts);
+        } else {
+            setSelectedProducts(products);
+        }
+    }, [selectedCategory])
+
     const renderCategoryItem = ({item}) => {
         return (
-            <CategoryBox title={item?.title} image={item?.image}/>
+            <CategoryBox
+                onPress={() => setSelectedCategory(item?.id)}
+                isSelected={item.id === selectedCategory}
+                title={item?.title}
+                image={item?.image}
+            />
         )
     }
 
@@ -27,7 +45,7 @@ const Home = () => {
             <View style={styles.container}>
                 <Header showSearch={true} title="Find All You Need" />
                 <FlatList showsHorizontalScrollIndicator={false} style={styles.list} horizontal data={categories} renderItem={renderCategoryItem} keyExtractor={(item, index) => {String(index)}}></FlatList>
-                <FlatList data={products} renderItem={renderProductItem} keyExtractor={(item) => String(item.id)} numColumns={2} ListFooterComponent={<View style={{height: 250}}/>}></FlatList>
+                <FlatList data={selectedProducts} renderItem={renderProductItem} keyExtractor={(item) => String(item.id)} numColumns={2} ListFooterComponent={<View style={{height: 250}}/>}></FlatList>
             </View>
         </SafeAreaView>
     )
