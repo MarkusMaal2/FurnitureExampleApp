@@ -12,16 +12,25 @@ import ProductHomeItem from "../../../components/ProductHomeItem";
 const Home = () => {
     const [selectedCategory, setSelectedCategory] = useState();
     const [selectedProducts, setSelectedProducts] = useState(products);
+    const [keyword, setKeyword] = useState();
 
     useEffect(() => {
-        if (selectedCategory) {
+        if (selectedCategory && !keyword) {
             const updatedSelectedProducts = products.filter((product) => 
                 product?.category === selectedCategory);
             setSelectedProducts(updatedSelectedProducts);
-        } else {
+        } else if (selectedCategory && keyword) {
+            const updatedSelectedProducts = products.filter((product) => 
+                product?.category === selectedCategory && product?.title?.toLowerCase().includes(keyword.toLowerCase()));
+            setSelectedProducts(updatedSelectedProducts);
+        } else if (!selectedCategory && keyword) {
+            const updatedSelectedProducts = products.filter((product) => 
+                product?.title?.toLowerCase().includes(keyword.toLowerCase()));
+            setSelectedProducts(updatedSelectedProducts);
+        } else if (!keyword && !selectedCategory) {
             setSelectedProducts(products);
         }
-    }, [selectedCategory])
+    }, [selectedCategory, keyword])
 
     const renderCategoryItem = ({item}) => {
         return (
@@ -43,7 +52,7 @@ const Home = () => {
     return (
         <SafeAreaView>
             <View style={styles.container}>
-                <Header showSearch={true} title="Find All You Need" />
+                <Header showSearch={true} title="Find All You Need" onSearchKeyword={setKeyword} keyword={keyword} />
                 <FlatList showsHorizontalScrollIndicator={false} style={styles.list} horizontal data={categories} renderItem={renderCategoryItem} keyExtractor={(item, index) => {String(index)}}></FlatList>
                 <FlatList data={selectedProducts} renderItem={renderProductItem} keyExtractor={(item) => String(item.id)} numColumns={2} ListFooterComponent={<View style={{height: 250}}/>}></FlatList>
             </View>
