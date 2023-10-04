@@ -22,7 +22,8 @@ export const styles = StyleSheet.create( {
 
     button: {
         marginVertical: 20,
-        marginLeft: 0
+        marginLeft: 0,
+        minHeight: 60,
     },
 
     footerText: {

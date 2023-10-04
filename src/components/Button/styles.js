@@ -4,9 +4,9 @@ export const styles = StyleSheet.create({
     container: {
         backgroundColor: colors.blue,
         padding: 0,
-        margin: 20,
         borderRadius: 10,
-        width: "100%"
+        width: "100%",
+        flex: 1
     },
 
     title: {

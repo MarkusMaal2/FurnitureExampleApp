@@ -9,7 +9,7 @@ import { categories } from "../../../data/categories";
 import { products } from "../../../data/products";
 import ProductHomeItem from "../../../components/ProductHomeItem";
 
-const Home = () => {
+const Home = ({navigation}) => {
     const [selectedCategory, setSelectedCategory] = useState();
     const [selectedProducts, setSelectedProducts] = useState(products);
     const [keyword, setKeyword] = useState();
@@ -44,11 +44,15 @@ const Home = () => {
     }
 
     const renderProductItem = ({item}) => {
+        const onProductPress = (product) => {
+            navigation.navigate("ProductDetails", {product})
+        }
         console.log('item => ', item);
         return (
-            <ProductHomeItem {...item}></ProductHomeItem>
+            <ProductHomeItem {...item} onPress={() => onProductPress(item)}></ProductHomeItem>
         )
     }
+
     return (
         <SafeAreaView>
             <View style={styles.container}>

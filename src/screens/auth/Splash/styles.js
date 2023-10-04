@@ -36,5 +36,9 @@ export const styles = StyleSheet.create({
         fontWeight: "bold",
         color: colors.blue,
         paddingTop: 10,
+    },
+    signUpButton: {
+        maxHeight: 60,
+        margin: 20,
     }
 })

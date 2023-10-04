@@ -9,6 +9,7 @@ import SignIn from "./src/screens/auth/SignIn";
 import Home from "./src/screens/app/Home";
 import Favorites from "./src/screens/app/Favorites";
 import Profile from "./src/screens/app/Profile";
+import ProductDetails from "./src/screens/ProductDetails";
 
 // styling colors
 import { colors } from "./src/utils/colors";
@@ -78,6 +79,7 @@ const App = () => {
           (
             <>
               <Stack.Screen name="Tabs" component={Tabs} options={{headerShown: false}} />
+              <Stack.Screen name="ProductDetails" component={ProductDetails} options={{headerShown: false}} />
             </>
           )
           :
