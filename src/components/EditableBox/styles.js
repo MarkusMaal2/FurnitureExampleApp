@@ -3,10 +3,9 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
     container: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: 'space-between',
-        padding: 16,
+        paddingHorizontal: 16,
+        paddingVertical: 12,
+
         shadowColor: colors.black,
         shadowOffset: {
             width: 0,
@@ -14,24 +13,22 @@ export const styles = StyleSheet.create({
         },
         shadowOpacity: 0.20,
         shadowRadius: 12.35,
+
+        elevation: 6,
+
         backgroundColor: colors.white,
         marginVertical: 12,
         borderRadius: 4,
-        elevation: 19,
     },
 
-    title: {
-        color: colors.blue,
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-    subtitle: {
+    label: {
         color: colors.grey,
         fontSize: 12,
-        marginTop: 6,
+        marginBottom: 6,
     },
-    arrow: {
-        height: 16,
-        width: 8,
-    }
+    input: {
+        color: colors.blue,
+        fontSize: 14,
+        marginBottom: 6,
+    },
 })

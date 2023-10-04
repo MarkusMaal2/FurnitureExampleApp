@@ -10,9 +10,19 @@ import Home from "./src/screens/app/Home";
 import Favorites from "./src/screens/app/Favorites";
 import Profile from "./src/screens/app/Profile";
 import ProductDetails from "./src/screens/app/ProductDetails";
+import Settings from "./src/screens/app/Settings";
 
 // styling colors
 import { colors } from "./src/utils/colors";
+
+const ProfileStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Profile" component={Profile} options={{headerShown: false}}></Stack.Screen>
+      <Stack.Screen name="Settings" component={Settings} options={{headerShown: false}}></Stack.Screen>
+    </Stack.Navigator>
+  )
+}
 
 // react navigation dependencies
 import { NavigationContainer } from "@react-navigation/native";
@@ -48,7 +58,7 @@ const Tabs = () => {
     })}>
       <Tab.Screen name="Home" component={Home}></Tab.Screen>
       <Tab.Screen name="Favorites" component={Favorites}></Tab.Screen>
-      <Tab.Screen name="Profile" component={Profile}></Tab.Screen>
+      <Tab.Screen name="Profile" component={ProfileStack}></Tab.Screen>
     </Tab.Navigator>
   )
 }
