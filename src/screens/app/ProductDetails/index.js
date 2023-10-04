@@ -1,5 +1,5 @@
 import React from "react";
-import {ScrollView, Text, Image, View, Pressable} from "react-native";
+import {ScrollView, Text, Image, View, Pressable, Linking} from "react-native";
 import Button from "../../../components/Button";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "./styles";
@@ -10,6 +10,11 @@ const ProductDetails = ({navigation, route}) => {
     
     const onBackPress = () => {
         navigation.goBack();
+    }
+
+    const onContact = () => {
+        let email = "markus.maal@voco.ee";
+        Linking.openURL(`mailto:${email}`);
     }
 
     return (
@@ -33,7 +38,7 @@ const ProductDetails = ({navigation, route}) => {
                 <Pressable style={styles.bookmarkContainer}>
                     <Image style={styles.bookmarkIcon} source={require("../../../assets/nav/favorites_active.png")}/>
                 </Pressable>
-                <Button title="Contact Seller"/>
+                <Button onPress={onContact} title="Contact Seller"/>
             </View>
         </SafeAreaView>
     )
