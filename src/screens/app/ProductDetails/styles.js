@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native"
-import { colors } from "../../utils/colors"
+import { colors } from "../../../utils/colors"
 const {height} = Dimensions.get('window')
 
 export const styles = StyleSheet.create( {
@@ -46,5 +46,16 @@ export const styles = StyleSheet.create( {
     bookmarkIcon: {
         width: 24,
         height: 24,
-    }
+    },
+    backContainer: {
+        backgroundColor: colors.white,
+        padding: 10,
+        margin: 24,
+        borderRadius: 8,
+        position: "absolute",
+    },
+    backIcon: {
+        width: 20,
+        height: 20,
+    },
 });

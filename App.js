@@ -9,7 +9,7 @@ import SignIn from "./src/screens/auth/SignIn";
 import Home from "./src/screens/app/Home";
 import Favorites from "./src/screens/app/Favorites";
 import Profile from "./src/screens/app/Profile";
-import ProductDetails from "./src/screens/ProductDetails";
+import ProductDetails from "./src/screens/app/ProductDetails";
 
 // styling colors
 import { colors } from "./src/utils/colors";
