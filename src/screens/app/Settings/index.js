@@ -7,7 +7,7 @@ import ListItem from "../../../components/ListItem";
 import EditableBox from "../../../components/EditableBox";
 import Button from "../../../components/Button";
 
-const Settings = () => {
+const Settings = ({navigation}) => {
     const num = 10;
     const [editing, setEditing] = useState(false);
     const [values, setValues] = useState({name: 'User', email: 'user@mail.com'});
@@ -28,10 +28,14 @@ const Settings = () => {
         setValues(v => ({...v, [key]: value}))
     }
 
+    const goBack = () => {
+        navigation.goBack();
+    }
+
     return (
         <SafeAreaView style={{flex: 1}}>
-            <Header title="Settings"></Header>
-            <View style={styles.container}>
+        <View style={styles.container}>
+                <Header title="Settings" showBack={true} onBackPress={goBack}></Header>
                 <View style={styles.sectionHeader}>
                     <Text style={styles.sectionTitle}>Personal information</Text>
                     <Pressable onPress={onEditPress}><Image style={styles.icon} source={require('../../../assets/edit.png')}></Image></Pressable>

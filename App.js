@@ -11,6 +11,7 @@ import Favorites from "./src/screens/app/Favorites";
 import Profile from "./src/screens/app/Profile";
 import ProductDetails from "./src/screens/app/ProductDetails";
 import Settings from "./src/screens/app/Settings";
+import CreateListing from "./src/screens/app/CreateListing";
 
 // styling colors
 import { colors } from "./src/utils/colors";
@@ -20,6 +21,7 @@ const ProfileStack = () => {
     <Stack.Navigator>
       <Stack.Screen name="Profile" component={Profile} options={{headerShown: false}}></Stack.Screen>
       <Stack.Screen name="Settings" component={Settings} options={{headerShown: false}}></Stack.Screen>
+      <Stack.Screen name="CreateListing" component={CreateListing} options={{headerShown: false}}></Stack.Screen>
     </Stack.Navigator>
   )
 }
