@@ -14,7 +14,27 @@ export const styles = StyleSheet.create({
     },
     image: {
         width: 100,
-        height: 100
+        height: 100,
+        minHeight: 100,
+        minHeight: 100,
+        backgroundColor: "red",
+        borderRadius: 8,
+        marginRight: 8,
+    },
+    imageRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+    },
+    imageContainer: {
+        flexDirection: 'row',
+        marginRight: 8,
+    },
+    delete: {
+        width: 24,
+        height: 24,
+        marginTop: -10,
+        marginLeft: -23,
     },
     uploadContainer: {
         width: 100,
@@ -26,6 +46,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        marginRight: 8
     },
     uploadCircle: {
         width: 32,
@@ -40,5 +61,17 @@ export const styles = StyleSheet.create({
         color: colors.white,
         fontSize: 28,
         marginTop: -4
+    },
+    loader: {
+        position: "absolute",
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        marginTop: "50%",
+    },
+    textarea: {
+        minHeight: 140,
+        paddingTop: 21,
     }
 })
