@@ -11,6 +11,7 @@ import GoogleLogin from "../../../components/GoogleLogin";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { UserContext } from "../../../../App";
+import { addTokenToAxios } from "../../../utils/request";
 import axios from "axios";
 
 const SignIn = ({navigation}) => {
@@ -41,7 +42,8 @@ const SignIn = ({navigation}) => {
             const accessToken = response?.data?.accessToken;
             setUser({accessToken});
             if (response?.data?.token) {
-                await AsyncStorage.setItem('auth_token', `${response?.data?.token}`)
+                addTokenToAxios(response?.data?.token);
+                await AsyncStorage.setItem('auth_token', `${response?.data?.token}`);
             }
         })
         .catch(error => {

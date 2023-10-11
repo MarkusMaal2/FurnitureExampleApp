@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {View, Text} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "./styles";
@@ -7,10 +7,19 @@ import ListItem from "../../../components/ListItem";
 import Button from "../../../components/Button";
 import { UserContext } from "../../../../App";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { ProfileContext } from "../../../../App";
+import { getProfile } from "../../../utils/backendCalls";
 
 const Profile = ({navigation}) => {
     const {user, setUser} = useContext(UserContext);
+    const {profile, setProfile} = useContext(ProfileContext);
+
+    useEffect(() => {
+        (async() => {
+            const data = await getProfile();
+            setProfile(data);
+        })()
+    }, [])
     const num = 10;
 
     const onLogout = async () => {
@@ -31,8 +40,8 @@ const Profile = ({navigation}) => {
             <View style={styles.container}>
                 <View style={styles.content}>
                 <Header title="Profile" showLogout onLogout={onLogout}></Header>
-                <Text style={styles.name}>Unnamed user</Text>
-                <Text style={styles.email}>User email</Text>
+                <Text style={styles.name}>{profile?.fullName}</Text>
+                <Text style={styles.email}>{profile?.email}</Text>
                 <ListItem title="My Listings" subtitle={`Already have ${num} listings`}/>
                 <ListItem onPress={onSettingsPress} title="Settings" subtitle="Account, FAQ, Contact"/>
                 </View>

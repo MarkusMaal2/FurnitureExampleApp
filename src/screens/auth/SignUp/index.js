@@ -51,6 +51,7 @@ const SignUp = ({navigation}) => {
                 setUser({accessToken});
                 if (response?.data?.token) {
                     await AsyncStorage.setItem('auth_token', `${response?.data?.token}`)
+                    await addTokenToAxios(response?.data?.token);
                 }
             })
             .catch(error => {
