@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import {View, Text, Image, SafeAreaView} from "react-native";
 import Button from "../../../components/Button";
 import Pressable from "../../../components/Pressable";
 import { styles } from "./styles";
+import { UserContext } from "../../../../App";
 
 const Splash = ({navigation}) => {
-    
     const handleSignUp = () => {
         navigation.navigate('SignUpScreen');
     }

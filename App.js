@@ -1,5 +1,5 @@
 // React dependencies
-import { React, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, SafeAreaView, Image } from "react-native";
 // auth components
 import Splash from "./src/screens/auth/Splash";
@@ -12,9 +12,14 @@ import Profile from "./src/screens/app/Profile";
 import ProductDetails from "./src/screens/app/ProductDetails";
 import Settings from "./src/screens/app/Settings";
 import CreateListing from "./src/screens/app/CreateListing";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 
 // styling colors
 import { colors } from "./src/utils/colors";
+
+export const UserContext = React.createContext();
 
 const ProfileStack = () => {
   return (
@@ -34,6 +39,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
 import Config from "react-native-config";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 const Stack = createNativeStackNavigator();
 
@@ -66,7 +72,15 @@ const Tabs = () => {
 }
 
 const App = () => {
-  const isSignedIn = true;
+  const isSignedIn = false;
+  const [user, setUser] = useState();
+
+useEffect(() => {
+  (async() => {
+    const accessToken = await AsyncStorage.getItem('auth_token')
+    setUser({accessToken})
+  })()
+}, []);
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -83,28 +97,32 @@ const App = () => {
     colors: {background: colors.white},
   }
   return (
-    <NavigationContainer theme={theme}>
-      <Stack.Navigator initialRouteName="SplashScreen">
-        {
-          isSignedIn
-          ?
-          (
-            <>
-              <Stack.Screen name="Tabs" component={Tabs} options={{headerShown: false}} />
-              <Stack.Screen name="ProductDetails" component={ProductDetails} options={{headerShown: false}} />
-            </>
-          )
-          :
-          (
-            <>
-              <Stack.Screen name="SplashScreen" component={Splash} options={{headerShown: false}}></Stack.Screen>
-              <Stack.Screen name="SignUpScreen" component={SignUp} options={{headerShown: false}}></Stack.Screen>
-              <Stack.Screen name="SignInScreen" component={SignIn} options={{headerShown: false}}></Stack.Screen>
-            </>
-          )
-      }
-      </Stack.Navigator>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <UserContext.Provider value={{user, setUser}}>
+        <NavigationContainer theme={theme}>
+          <Stack.Navigator initialRouteName="SplashScreen">
+            {
+              user?.accessToken
+              ?
+              (
+                <>
+                  <Stack.Screen name="Tabs" component={Tabs} options={{headerShown: false}} />
+                  <Stack.Screen name="ProductDetails" component={ProductDetails} options={{headerShown: false}} />
+                </>
+              )
+              :
+              (
+                <>
+                  <Stack.Screen name="SplashScreen" component={Splash} options={{headerShown: false}}></Stack.Screen>
+                  <Stack.Screen name="SignUpScreen" component={SignUp} options={{headerShown: false}}></Stack.Screen>
+                  <Stack.Screen name="SignInScreen" component={SignIn} options={{headerShown: false}}></Stack.Screen>
+                </>
+              )
+          }
+          </Stack.Navigator>
+        </NavigationContainer>
+      </UserContext.Provider>
+    </SafeAreaProvider>
   )
 }
 
