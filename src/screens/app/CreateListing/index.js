@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Image } from "react-native";
 import Header from "../../../components/Header";
 import { styles } from "./styles";
+import { categories } from "../../../data/categories";
 
 import {launchCamera, launchImageLibrary} from "react-native-image-picker";
 import Input from "../../../components/Input";
@@ -39,8 +40,9 @@ const CreateListing = ({navigation}) => {
     }
 
     return (
+        <SafeAreaView style={{minHeight: "100%"}}>
+        <Header showBack onBackPress={goBack} title="Create new listing"></Header>
         <KeyboardAvoidingView behavior="position" style={{flex: 1}}>
-            <Header showBack onBackPress={goBack} title="Create new listing"></Header>
             <ScrollView style={styles.container}>
                 <Text style={styles.sectionTitle}>Upload photos</Text>
                 <View style={styles.imageRow}>
@@ -60,12 +62,13 @@ const CreateListing = ({navigation}) => {
                     {loading ? (<ActivityIndicator style={styles.loader}/>) : null}
                 </View>
                 <Input label={"Title"} placeholder={"Listing Title"} value={values.title} onChangeText={(v) => onChange(v, 'title')}/>
-                <Input label={"Category"} placeholder={"Select the category"} value={values.category}  onChangeText={(v) => onChange(v, 'category')}/>
+                <Input label={"Category"} placeholder={"Select the category"} value={values.category}  onChangeText={(v) => onChange(v, 'category')} type={"picker"} options={categories}/>
                 <Input label={"Price"} placeholder={"Enter price in USD"} value={values.price} onChangeText={(v) => onChange(v, 'price')} keyboardType="numeric" />
                 <Input label={"Description"} placeholder={"Tell us more..."} value={values.description} onChangeText={(v) => onChange(v, 'description')} style={styles.textarea} multiline/>
                 <Button title="Submit" />
             </ScrollView>
         </KeyboardAvoidingView>
+        </SafeAreaView>
     )
 }
 
