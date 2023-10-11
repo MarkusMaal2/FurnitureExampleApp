@@ -6,7 +6,8 @@ export const getProfile = async() => {
         const response = await request({
             url: '/user/profile',
             method: 'get',
-        })
+            headers: AsyncStorage.getItem('token'),
+        });
 
         if (response) {
             return response?.data;

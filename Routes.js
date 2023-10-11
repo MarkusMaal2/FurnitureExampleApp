@@ -97,6 +97,9 @@ const Routes = () => {
     const theme = {
         colors: {background: colors.white},
       }
+      if (loading) {
+        return null;
+      }
     return (
         <NavigationContainer theme={theme}>
               <Stack.Navigator initialRouteName="SplashScreen">
