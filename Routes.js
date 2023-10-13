@@ -32,6 +32,7 @@ import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import Config from "react-native-config";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { UserContext } from "./App";
+import MyListings from "./src/screens/app/MyListings";
 
 
 const Stack = createNativeStackNavigator();
@@ -70,6 +71,7 @@ const ProfileStack = () => {
         <Stack.Screen name="Profile" component={Profile} options={{headerShown: false}}></Stack.Screen>
         <Stack.Screen name="Settings" component={Settings} options={{headerShown: false}}></Stack.Screen>
         <Stack.Screen name="CreateListing" component={CreateListing} options={{headerShown: false}}></Stack.Screen>
+        <Stack.Screen name="MyListings" component={MyListings} options={{headerShown: false}}></Stack.Screen>
       </Stack.Navigator>
     )
   }
@@ -77,10 +79,6 @@ const Routes = () => {
 
     const [loading, setLoading] = useState(true);
     const { user, setUser } = useContext(UserContext);
-
-    if (loading) {
-      return null;
-    }
     useEffect(() => {
         (async () => {
             const token = await AsyncStorage.getItem('auth_token');
@@ -99,6 +97,10 @@ const Routes = () => {
             addTokenToAxios(user?.accessToken);
         }
     }, [user]);
+
+    if (loading) {
+      return null;
+    }
     const theme = {
         colors: {background: colors.white},
       }

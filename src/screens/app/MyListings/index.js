@@ -3,10 +3,12 @@ import {FlatList} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FavoriteItem from "../../../components/FavoriteItem";
 import Header from "../../../components/Header";
-import { ProfileContext } from "../../../../App";
+import { ProfileContext, ServicesContext } from "../../../../App";
 
 const MyListings = ({navigation}) => {
+    const {services, setServices} = useContext(ServicesContext);
     const {profile} = useContext(ProfileContext);
+    const myServices = Array.isArray(services) ? services?.filter(service => service?.owner === profile?._id) : [];
     const renderItem = ({ item }) => {
         const onProductPress = () => {
             navigation.navigate('ProductDetails', { product: item });
