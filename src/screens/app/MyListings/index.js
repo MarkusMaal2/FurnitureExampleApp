@@ -4,11 +4,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import FavoriteItem from "../../../components/FavoriteItem";
 import Header from "../../../components/Header";
 import { ProfileContext, ServicesContext } from "../../../../App";
+import { styles } from "./styles";
 
 const MyListings = ({navigation}) => {
     const {services, setServices} = useContext(ServicesContext);
     const {profile} = useContext(ProfileContext);
-    const myServices = Array.isArray(services) ? services?.filter(service => service?.owner === profile?._id) : [];
+    const myServices = services?.filter(service => service?.owner === profile?.id);
     const renderItem = ({ item }) => {
         const onProductPress = () => {
             navigation.navigate('ProductDetails', { product: item });
@@ -23,12 +24,11 @@ const MyListings = ({navigation}) => {
     };
 
     const goBack = () => navigation.goBack();
-
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
             <Header title='My Listings' showBack onBackPress={goBack} />
 
-            <FlatList data={myServices} renderItem={renderItem} keyExtractor={item => String(item?._id)} />
+            <FlatList data={myServices} renderItem={renderItem} keyExtractor={item => String(item?.id)} />
         </SafeAreaView>
     );
 }

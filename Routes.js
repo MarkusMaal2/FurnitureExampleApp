@@ -68,7 +68,7 @@ const Tabs = () => {
 const ProfileStack = () => {
     return (
       <Stack.Navigator>
-        <Stack.Screen name="Profile" component={Profile} options={{headerShown: false}}></Stack.Screen>
+        <Stack.Screen name="ProfileMain" component={Profile} options={{headerShown: false}}></Stack.Screen>
         <Stack.Screen name="Settings" component={Settings} options={{headerShown: false}}></Stack.Screen>
         <Stack.Screen name="CreateListing" component={CreateListing} options={{headerShown: false}}></Stack.Screen>
         <Stack.Screen name="MyListings" component={MyListings} options={{headerShown: false}}></Stack.Screen>

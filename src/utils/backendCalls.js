@@ -26,6 +26,7 @@ export const updateProfile = async (data) => {
             url: '/user/profile',
             method: 'patch',
             data,
+            headers: axios.defaults.headers,
         });
 
         if (response) {
@@ -42,6 +43,7 @@ export const getServices = async() => {
         const response = await request({
             url: '/services',
             method: 'get',
+            headers: axios.defaults.headers,
         });
 
         if (response) {
@@ -50,5 +52,30 @@ export const getServices = async() => {
         }
     } catch (ex) {
         console.log('services exception :>> ', ex.response);
+    }
+}
+
+export const addService = async (data) => {
+    try {
+        const formData = new FormData();
+        const objKeys = Object.keys(data);
+        console.log('objKeys :>> ', objKeys);
+        objKeys.forEach(key => {
+            formData.append(key, data[key]);
+        });
+        const response = await request({
+            url: '/services',
+            method: 'post',
+            headers: {
+                'Content-Type' : 'multipart/form-data',
+            },
+            data: formData,
+        });
+        if (response) {
+            const services = await getServices();
+            return services;
+        }
+    } catch (ex) {
+        console.log('ex add services :>> ', ex.response);
     }
 }
