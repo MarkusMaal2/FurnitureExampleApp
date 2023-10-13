@@ -1,7 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 import {View, Text, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "./styles";
+import { getServices } from "../../../utils/backendCalls";
+import { ServicesContext } from "../../../../App";
 
 import Header from "../../../components/Header";
 import CategoryBox from "../../../components/CategoryBox";
@@ -10,27 +12,36 @@ import { products } from "../../../data/products";
 import ProductHomeItem from "../../../components/ProductHomeItem";
 
 const Home = ({navigation}) => {
-    const [selectedCategory, setSelectedCategory] = useState();
-    const [selectedProducts, setSelectedProducts] = useState(products);
     const [keyword, setKeyword] = useState();
+    const [selectedCategory, setSelectedCategory] = useState();
+    const [selectedProducts, setSelectedProducts] = useState(services);
+    const {services, setServices} = useContext(ServicesContext);
+
+    useEffect(() => {
+        (async() => {
+            const data = await getServices();
+            setServices(data);
+        })()
+    }, [])
+    
 
     useEffect(() => {
         if (selectedCategory && !keyword) {
-            const updatedSelectedProducts = products.filter((product) => 
-                product?.category === selectedCategory);
+            const updatedSelectedProducts = services.filter((product) => 
+                String(product?.category) === String(selectedCategory));
             setSelectedProducts(updatedSelectedProducts);
         } else if (selectedCategory && keyword) {
-            const updatedSelectedProducts = products.filter((product) => 
-                product?.category === selectedCategory && product?.title?.toLowerCase().includes(keyword.toLowerCase()));
+            const updatedSelectedProducts = services.filter((product) => 
+                String(product?.category) === String(selectedCategory) && product?.title?.toLowerCase().includes(keyword.toLowerCase()));
             setSelectedProducts(updatedSelectedProducts);
         } else if (!selectedCategory && keyword) {
-            const updatedSelectedProducts = products.filter((product) => 
+            const updatedSelectedProducts = services.filter((product) => 
                 product?.title?.toLowerCase().includes(keyword.toLowerCase()));
             setSelectedProducts(updatedSelectedProducts);
         } else if (!keyword && !selectedCategory) {
-            setSelectedProducts(products);
+            setSelectedProducts(services);
         }
-    }, [selectedCategory, keyword])
+    }, [selectedCategory, keyword, services])
 
     const renderCategoryItem = ({item}) => {
         return (
@@ -39,6 +50,7 @@ const Home = ({navigation}) => {
                 isSelected={item.id === selectedCategory}
                 title={item?.title}
                 image={item?.image}
+                keyExtractor={(item => String(item._id))}
             />
         )
     }

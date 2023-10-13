@@ -36,3 +36,19 @@ export const updateProfile = async (data) => {
         console.log('profile exception :>> ', ex);
     }
 }
+
+export const getServices = async() => {
+    try {
+        const response = await request({
+            url: '/services',
+            method: 'get',
+        });
+
+        if (response) {
+            console.log("Response data:", response?.data);
+            return response?.data;
+        }
+    } catch (ex) {
+        console.log('services exception :>> ', ex.response);
+    }
+}

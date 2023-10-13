@@ -16,6 +16,7 @@ export const styles = StyleSheet.create({
         width: (width - 81) / 2,
         height: 200,
         borderRadius: 8,
+        backgroundColor: colors.lightGrey,
     },
     price: {
         color: colors.black,
