@@ -5,6 +5,7 @@ import FavoriteItem from "../../../components/FavoriteItem";
 import Header from "../../../components/Header";
 import { ProfileContext, ServicesContext } from "../../../../App";
 import { styles } from "./styles";
+import { deleteService } from "../../../utils/backendCalls";
 
 const MyListings = ({navigation}) => {
     const {services, setServices} = useContext(ServicesContext);
@@ -15,7 +16,7 @@ const MyListings = ({navigation}) => {
             navigation.navigate('ProductDetails', { product: item });
         };
         const onRemove = async () => {
-            const updatedServices = await deleteService(item?._id);
+            const updatedServices = await deleteService(item?.id);
             setServices(updatedServices);
         };
         return (

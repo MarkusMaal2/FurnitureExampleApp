@@ -59,15 +59,19 @@ export const addService = async (data) => {
     try {
         const formData = new FormData();
         const objKeys = Object.keys(data);
+        const profile = await getProfile();
         console.log('objKeys :>> ', objKeys);
         objKeys.forEach(key => {
             formData.append(key, data[key]);
         });
+        console.log(data["image"]);
+        formData.append("owner", profile.id);
+        formData.append("currency", "USD");
         const response = await request({
             url: '/services',
             method: 'post',
             headers: {
-                'Content-Type' : 'multipart/form-data',
+                'Content-Type': 'multipart/form-data',
             },
             data: formData,
         });
@@ -77,5 +81,24 @@ export const addService = async (data) => {
         }
     } catch (ex) {
         console.log('ex add services :>> ', ex.response);
+    }
+}
+
+export const deleteService = async (id) => {
+    try {
+        const response = await request({
+            url: '/services',
+            method: 'delete',
+            data: {
+                servicesId: id,
+            }
+        })
+
+        if(response) {
+            const services = await getServices();
+            return services;
+        }
+    } catch (ex) {
+        console.log('ex services :>> ', ex.response);
     }
 }
