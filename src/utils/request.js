@@ -11,7 +11,6 @@ export const request = ({url, method, data, headers}) => {
     });
 }
 
-export const addTokenToAxios = (token) => {
-    console.log("added token (", token, ") to axios!")
-    axios.defaults.headers.Authorization = token;
+export const addTokenToAxios = async (token) => {
+    axios.defaults.headers.authorization = token;
 }

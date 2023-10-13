@@ -6,10 +6,11 @@ import FavoriteItem from "../../../components/FavoriteItem";
 import Header from "../../../components/Header";
 import { Alert } from "react-native";
 import { products } from "../../../data/products";
+import AsyncStorage  from '@react-native-async-storage/async-storage';
 
 const Favorites = ({navigation}) => {
     const onRemove = async () => {
-        Alert.alert('Feature not implemented');
+        Alert.alert("Feature not implemented");
     }
 
     const onIconPress = () => {

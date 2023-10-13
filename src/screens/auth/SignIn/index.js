@@ -41,7 +41,7 @@ const SignIn = ({navigation}) => {
             const accessToken = response?.data?.accessToken;
             setUser({accessToken});
             if (response?.data?.token) {
-                await AsyncStorage.setItem('auth_token', `${response?.data?.token}`);
+                await AsyncStorage.setItem('auth_token', `${accessToken}`);
             }
         })
         .catch(error => {

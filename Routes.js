@@ -78,10 +78,13 @@ const Routes = () => {
     const [loading, setLoading] = useState(true);
     const { user, setUser } = useContext(UserContext);
 
+    if (loading) {
+      return null;
+    }
     useEffect(() => {
         (async () => {
             const token = await AsyncStorage.getItem('auth_token');
-            setUser({ token });
+            setUser( {token} );
 
             setTimeout(() => {
                 setLoading(false);
@@ -90,15 +93,14 @@ const Routes = () => {
     }, []);
 
     useEffect(() => {
-        if (user?.token) {
-            addTokenToAxios(user?.token);
+        console.log("user: ", user);
+        if (user?.accessToken && user?.accessToken != "undefined") {
+            console.log("add token: " + user?.accessToken);
+            addTokenToAxios(user?.accessToken);
         }
     }, [user]);
     const theme = {
         colors: {background: colors.white},
-      }
-      if (loading) {
-        return null;
       }
     return (
         <NavigationContainer theme={theme}>
