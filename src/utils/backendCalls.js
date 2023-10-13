@@ -10,7 +10,6 @@ export const getProfile = async() => {
             method: 'get',
             headers: axios.defaults.headers,
         });
-        console.log(response);
 
         if (response) {
             return response?.data;
@@ -18,5 +17,22 @@ export const getProfile = async() => {
     } catch (ex) {
         console.log('profile exception :>> ', ex);
         
+    }
+}
+
+export const updateProfile = async (data) => {
+    try {
+        const response = await request({
+            url: '/user/profile',
+            method: 'patch',
+            data,
+        });
+
+        if (response) {
+            const profile = await getProfile()
+            return profile;
+        }
+    } catch (ex) {
+        console.log('profile exception :>> ', ex);
     }
 }
