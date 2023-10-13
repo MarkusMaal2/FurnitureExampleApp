@@ -61,19 +61,12 @@ export const addService = async (data) => {
         const objKeys = Object.keys(data);
         const profile = await getProfile();
         console.log('objKeys :>> ', objKeys);
-        objKeys.forEach(key => {
-            formData.append(key, data[key]);
-        });
-        console.log(data["image"]);
         formData.append("owner", profile.id);
-        formData.append("currency", "USD");
         const response = await request({
             url: '/services',
             method: 'post',
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-            data: formData,
+            data: data,
+            headers: axios.defaults.headers,
         });
         if (response) {
             const services = await getServices();
@@ -100,5 +93,24 @@ export const deleteService = async (id) => {
         }
     } catch (ex) {
         console.log('ex services :>> ', ex.response);
+    }
+}
+
+export const updateService = async(id, data) => {
+    try {
+        const response = await request({
+            url: '/services',
+            method: 'patch',
+            data: {
+                servicesId: id,
+                ...data,
+            }
+        });
+        if (response) {
+            const services = await getServices();
+            return services;
+        }
+    } catch (ex) {
+        console.log('e services :>> ', e.response);
     }
 }
