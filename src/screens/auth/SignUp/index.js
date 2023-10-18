@@ -40,12 +40,12 @@ const SignUp = ({navigation}) => {
             Alert.alert("Please agree with the terms");
             return;
         }
-
-        axios.post("http://192.168.18.4/api/user/register", values)
+        console.log(Config.API_BASE_URL)
+        axios.post(Config.API_BASE_URL + "/user/register", values)
         .then(response => {
             console.log("signup => ", response);
             const {email, password} = values;
-            axios.post('http://192.168.18.4/api/user/login', values)
+            axios.post(Config.API_BASE_URI + '/user/login', values)
             .then(async (response) => {
                 const accessToken = response?.data?.accessToken;
                 setUser({accessToken});
