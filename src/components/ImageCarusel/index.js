@@ -18,7 +18,7 @@ const ImageCarusel = ({images}) => {
     }
     return (
         <View>
-            <FlatList pagingEnabled horizontal style={styles.list} data={images} renderItem={renderImage} onMomentumScrollEnd={handleScrollEnd}/>
+            <FlatList pagingEnabled horizontal style={styles.list} data={images} renderItem={renderImage} onMomentumScrollEnd={handleScrollEnd} keyExtractor={(item) => {Math.random()}}/>
             <View style={styles.pagination}>
                 {  images?.map((_, i) => (
                     <View key={i} style={[styles.paginationLine, i === page ? styles.activeLine : {}]}></View>

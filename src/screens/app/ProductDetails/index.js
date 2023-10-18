@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import {ScrollView, Text, Image, View, Pressable, Linking} from "react-native";
 import Button from "../../../components/Button";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "./styles";
 import ImageCarusel from "../../../components/ImageCarusel";
+import { ServicesContext } from "../../../../App";
+import { updateService } from "../../../utils/backendCalls";
+import Config from "react-native-config";
 
 const ProductDetails = ({navigation, route}) => {
-    const {product} = route.params || {}
+
+    const params = route?.params || {};
+    const { services, setServices } = useContext(ServicesContext);
+    const product = services?.find(service => service?.id === params?.product?.id);
+
     
     const onBackPress = () => {
         navigation.goBack();
@@ -17,13 +24,18 @@ const ProductDetails = ({navigation, route}) => {
         Linking.openURL(`mailto:${email}`);
     }
 
+    const onBookmark = async () => {
+        const data = await updateService(product?.id, {liked: true});
+        setServices(data);
+    }
+
     return (
         <SafeAreaView style={styles.save}>
             <ScrollView style={styles.container}>
                 {product?.images?.length ? (
                     <ImageCarusel images={product?.images} />
                 ) : (
-                    <Image style={styles.image} source={{uri: product?.image}}/>
+                    <Image style={styles.image} source={{uri: `${Config.API_BASE_URL}/${product?.image}`}}/>
                 )}
                 <View style={styles.content}>
                     <Text style={styles.title}>{product?.title}</Text>
@@ -35,8 +47,8 @@ const ProductDetails = ({navigation, route}) => {
                 </Pressable>
             </ScrollView>
             <View style={styles.footer}>
-                <Pressable style={styles.bookmarkContainer}>
-                    <Image style={styles.bookmarkIcon} source={require("../../../assets/nav/favorites_active.png")}/>
+                <Pressable style={styles.bookmarkContainer} onPress={onBookmark}>
+                    <Image style={styles.bookmarkIcon} source={product?.liked ? require("../../../assets/nav/favorites_active.png") : require("../../../assets/nav/favorites.png")}/>
                 </Pressable>
                 <Button onPress={onContact} title="Contact Seller"/>
             </View>

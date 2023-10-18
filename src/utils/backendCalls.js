@@ -111,6 +111,6 @@ export const updateService = async(id, data) => {
             return services;
         }
     } catch (ex) {
-        console.log('e services :>> ', e.response);
+        console.log('e services :>> ', ex.response);
     }
 }
