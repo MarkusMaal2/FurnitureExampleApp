@@ -98,6 +98,10 @@ export const deleteService = async (id) => {
 
 export const updateService = async(id, data) => {
     try {
+        console.log("request data => ", {
+                servicesId: id,
+                ...data,
+        });
         const response = await request({
             url: '/services',
             method: 'patch',

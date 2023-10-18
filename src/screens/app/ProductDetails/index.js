@@ -39,7 +39,7 @@ const ProductDetails = ({navigation, route}) => {
                 )}
                 <View style={styles.content}>
                     <Text style={styles.title}>{product?.title}</Text>
-                    <Text style={styles.price}>{product?.price}</Text>
+                    <Text style={styles.price}>$ {product?.price}</Text>
                     <Text style={styles.description}>{product?.description}</Text>
                 </View>
                 <Pressable onPress={onBackPress} style={styles.backContainer}>

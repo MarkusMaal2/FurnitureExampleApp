@@ -8,7 +8,7 @@ const FavoriteItem = ({title, image, price, onPress, onIconPress}) => {
             <Image style={styles.image} source={{uri: image}}/>
             <View style={styles.content}>
                 <Text style={styles.title}>{title}</Text>
-                <Text style={styles.price}>{price}</Text>
+                <Text style={styles.price}>$ {price}</Text>
             </View>
             <Pressable onPress={onIconPress}>
                 <Image style={styles.icon} source={require('../../assets/close.png')}/>
