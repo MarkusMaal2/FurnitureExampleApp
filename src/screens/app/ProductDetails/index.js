@@ -35,7 +35,7 @@ const ProductDetails = ({navigation, route}) => {
                 {product?.images?.length ? (
                     <ImageCarusel images={product?.images} />
                 ) : (
-                    <Image style={styles.image} source={{uri: `${Config.API_BASE_URL}/${product?.image}`}}/>
+                    <Image style={styles.image} source={{uri: `${product?.image}`}}/>
                 )}
                 <View style={styles.content}>
                     <Text style={styles.title}>{product?.title}</Text>

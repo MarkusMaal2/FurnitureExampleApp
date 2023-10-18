@@ -52,11 +52,8 @@ const CreateListing = ({navigation}) => {
         }
 
         if (img) {
-            data['image'] = {
-                uri: img?.uri,
-                name: img?.fileName,
-                type: img?.type,
-            }
+            data['image'] = img?.uri;
+            
         }
 
         const updatedServices = await addService(data);
