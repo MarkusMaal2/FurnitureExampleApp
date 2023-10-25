@@ -1,9 +1,15 @@
-import React from "react";
+import React, {useContext, useState} from "react";
 import { styles } from "./styles"
 import { TouchableOpacity, Image } from "react-native";
 import { GoogleSignin, statusCodes } from "@react-native-google-signin/google-signin";
+import axios from "axios";
+import Config from "react-native-config";
+import { UserContext } from "../../../App";
+
 
 const GoogleLogin = () => {
+    const {user, setUser} = useContext(UserContext);
+    const [values, setValues] = useState({});
     const signIn = async() => {
         try {
             await GoogleSignin.hasPlayServices();
@@ -11,6 +17,26 @@ const GoogleLogin = () => {
             console.log(
                 'userInfo => ', userInfo 
             )
+            setValues({email: userInfo.user.email, password: userInfo.user.id});
+            axios.post(Config.API_BASE_URL + "/user/register", values)
+            .then(response => {
+                console.log("signup => ", response);
+                const {email, password} = values;
+                axios.post(Config.API_BASE_URI + '/user/login', values)
+                .then(async (response) => {
+                    const accessToken = response?.data?.accessToken;
+                    setUser({accessToken});
+                    if (response?.data?.token) {
+                        await AsyncStorage.setItem('auth_token', `${response?.data?.token}`)
+                    }
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+            })
+            .catch(error => {
+                console.error(error);
+            })
         } catch (error) {
             if (error.code === statusCodes.SIGN_IN_CANCELLED) {
                 console.log("Sign in cancelled");

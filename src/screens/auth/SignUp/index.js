@@ -15,7 +15,7 @@ import { UserContext } from "../../../../App";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignUp = ({navigation}) => {
-    const [checked, setChecked] = useState(true);
+    const [checked, setChecked] = useState(false);
     const [values, setValues] = useState({});
     const {user, setUser} = useContext(UserContext);
 
@@ -44,13 +44,12 @@ const SignUp = ({navigation}) => {
         axios.post(Config.API_BASE_URL + "/user/register", values)
         .then(response => {
             console.log("signup => ", response);
-            const {email, password} = values;
-            axios.post(Config.API_BASE_URI + '/user/login', values)
+            axios.post(Config.API_BASE_URL + '/user/login', values)
             .then(async (response) => {
                 const accessToken = response?.data?.accessToken;
                 setUser({accessToken});
-                if (response?.data?.token) {
-                    await AsyncStorage.setItem('auth_token', `${response?.data?.token}`)
+                if (response?.data?.accessToken) {
+                    await AsyncStorage.setItem('auth_token', `${response?.data?.taccessTokenoken}`)
                 }
             })
             .catch(error => {
