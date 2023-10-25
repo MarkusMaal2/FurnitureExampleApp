@@ -48,8 +48,8 @@ const SignUp = ({navigation}) => {
             .then(async (response) => {
                 const accessToken = response?.data?.accessToken;
                 setUser({accessToken});
-                if (response?.data?.accessToken) {
-                    await AsyncStorage.setItem('auth_token', `${response?.data?.taccessTokenoken}`)
+                if (response?.data?.token) {
+                    await AsyncStorage.setItem('auth_token', `${response?.data?.token}`)
                 }
             })
             .catch(error => {

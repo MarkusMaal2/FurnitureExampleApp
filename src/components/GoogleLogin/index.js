@@ -22,7 +22,7 @@ const GoogleLogin = () => {
             .then(response => {
                 console.log("signup => ", response);
                 const {email, password} = values;
-                axios.post(Config.API_BASE_URI + '/user/login', values)
+                axios.post(Config.API_BASE_URL + '/user/login', values)
                 .then(async (response) => {
                     const accessToken = response?.data?.accessToken;
                     setUser({accessToken});
