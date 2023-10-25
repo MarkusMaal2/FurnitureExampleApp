@@ -18,24 +18,36 @@ const GoogleLogin = () => {
                 'userInfo => ', userInfo 
             )
             setValues({email: userInfo.user.email, password: userInfo.user.id});
-            axios.post(Config.API_BASE_URL + "/user/register", values)
-            .then(response => {
-                console.log("signup => ", response);
-                const {email, password} = values;
-                axios.post(Config.API_BASE_URL + '/user/login', values)
-                .then(async (response) => {
-                    const accessToken = response?.data?.accessToken;
-                    setUser({accessToken});
-                    if (response?.data?.token) {
-                        await AsyncStorage.setItem('auth_token', `${response?.data?.token}`)
-                    }
-                })
-                .catch(error => {
-                    console.log(error)
-                })
+            setUser(null)
+            axios.post(Config.API_BASE_URL + '/user/login', values)
+            .then(async (response) => {
+                const accessToken = response?.data?.accessToken;
+                setUser({accessToken});
+                if (response?.data?.token) {
+                    await AsyncStorage.setItem('auth_token', `${response?.data?.token}`)
+                }
             })
             .catch(error => {
-                console.error(error);
+                console.log("e.attemptSignIn => ", error)
+                let uname = userInfo.user.name;
+                axios.post(Config.API_BASE_URL + "/user/register", {...values, uname})
+                .then(response => {
+                    console.log("signup => ", response);
+                    axios.post(Config.API_BASE_URL + '/user/login', values)
+                    .then(async (response) => {
+                        const accessToken = response?.data?.accessToken;
+                        setUser({accessToken});
+                        if (response?.data?.token) {
+                            await AsyncStorage.setItem('auth_token', `${response?.data?.token}`)
+                        }
+                    })
+                    .catch(error => {
+                        console.log("e.signIn => ", error)
+                    })
+                })
+                .catch(error => {
+                    console.error("e.signUp => ", error);
+                })
             })
         } catch (error) {
             if (error.code === statusCodes.SIGN_IN_CANCELLED) {
