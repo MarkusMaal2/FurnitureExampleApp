@@ -59,7 +59,6 @@ const Home = ({navigation}) => {
         const onProductPress = (product) => {
             navigation.navigate("ProductDetails", {product})
         }
-        console.log('item => ', item);
         return (
             <ProductHomeItem {...item} onPress={() => onProductPress(item)}></ProductHomeItem>
         )

@@ -31,7 +31,6 @@ const SignIn = ({navigation}) => {
     }
 
     const onSignin = () => {
-        console.log("login values => ", values);
         if (!values?.email || !values?.password) {
             Alert.alert("All fields are required!");
             return;

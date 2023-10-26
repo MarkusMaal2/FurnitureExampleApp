@@ -10,7 +10,7 @@ import Config from "react-native-config";
 
 const ProductDetails = ({navigation, route}) => {
 
-    const params = route?.params || {};
+    const params = route?.params || {};
     const { services, setServices } = useContext(ServicesContext);
     const product = services?.find(service => service?.id === params?.product?.id);
     const [bookmarked, setBookmarked] = useState(product?.liked);
@@ -25,8 +25,17 @@ const ProductDetails = ({navigation, route}) => {
     }
 
     const onBookmark = async () => {
-        product.liked = !product.liked;
-        setBookmarked(product.liked);
+        setBookmarked(!bookmarked);
+        product.liked = bookmarked;
+        const products = services;
+        let i = 0;
+        products.forEach((p) => {
+            if (p.id === product.id) {
+                products[i].liked = bookmarked;
+            }
+            i++;
+        })
+        setServices(products)
     }
 
     return (
@@ -48,7 +57,7 @@ const ProductDetails = ({navigation, route}) => {
             </ScrollView>
             <View style={styles.footer}>
                 <Pressable style={styles.bookmarkContainer} onPress={onBookmark}>
-                    <Image style={styles.bookmarkIcon} source={product?.liked ? require("../../../assets/nav/favorites_active.png") : require("../../../assets/nav/favorites.png")}/>
+                    <Image style={styles.bookmarkIcon} source={bookmarked ? require("../../../assets/nav/favorites_active.png") : require("../../../assets/nav/favorites.png")}/>
                 </Pressable>
                 <Button onPress={onContact} title="Contact Seller"/>
             </View>
