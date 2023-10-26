@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {ScrollView, Text, Image, View, Pressable, Linking} from "react-native";
 import Button from "../../../components/Button";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -13,7 +13,7 @@ const ProductDetails = ({navigation, route}) => {
     const params = route?.params || {};
     const { services, setServices } = useContext(ServicesContext);
     const product = services?.find(service => service?.id === params?.product?.id);
-
+    const [bookmarked, setBookmarked] = useState(product?.liked);
     
     const onBackPress = () => {
         navigation.goBack();
@@ -25,8 +25,8 @@ const ProductDetails = ({navigation, route}) => {
     }
 
     const onBookmark = async () => {
-        const data = await updateService(product?.id, {liked: true});
-        setServices(data);
+        product.liked = !product.liked;
+        setBookmarked(product.liked);
     }
 
     return (

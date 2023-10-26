@@ -19,7 +19,7 @@ const Favorites = ({navigation}) => {
         const onRemove = async () => {
             const updatedServices = await updateService(item?.id, {liked: false});
             if (Array.isArray(updateServices)) {
-                setServices(updateService);
+                setServices(updatedServices);
             }
         }
     
