@@ -5,14 +5,17 @@ import { styles } from "./styles";
 import Header from "../../../components/Header";
 import ListItem from "../../../components/ListItem";
 import Button from "../../../components/Button";
-import { UserContext } from "../../../../App";
+import { ServicesContext, UserContext } from "../../../../App";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ProfileContext } from "../../../../App";
 import { getProfile } from "../../../utils/backendCalls";
 
+
 const Profile = ({navigation}) => {
     const {user, setUser} = useContext(UserContext);
     const {profile, setProfile} = useContext(ProfileContext);
+    const {services, setServices} = useContext(ServicesContext);
+    const num = services?.filter(service => service?.owner === profile?.id).length;
 
     useEffect(() => {
         (async() => {
@@ -20,7 +23,6 @@ const Profile = ({navigation}) => {
             setProfile(data);
         })()
     }, [])
-    const num = 10;
 
     const onLogout = async () => {
         await AsyncStorage.removeItem("accessToken");

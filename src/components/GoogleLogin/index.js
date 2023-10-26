@@ -10,15 +10,13 @@ import { UserContext } from "../../../App";
 const GoogleLogin = () => {
     const {user, setUser} = useContext(UserContext);
     const [values, setValues] = useState({});
+    const [userInfo, setUserInfo] = useState({});
     const signIn = async() => {
         try {
             await GoogleSignin.hasPlayServices();
-            const userInfo = await GoogleSignin.signIn();
-            console.log(
-                'userInfo => ', userInfo 
-            )
-            setValues({email: userInfo.user.email, password: userInfo.user.id});
-            setUser(null)
+            setUserInfo(await GoogleSignin.signIn());
+            console.log("userInfo => ", userInfo.user.email);
+            setValues({email: userInfo.user.email, password: userInfo.user.id, fullName: userInfo.user.name})
             axios.post(Config.API_BASE_URL + '/user/login', values)
             .then(async (response) => {
                 const accessToken = response?.data?.accessToken;
@@ -29,8 +27,8 @@ const GoogleLogin = () => {
             })
             .catch(error => {
                 console.log("e.attemptSignIn => ", error)
-                let uname = userInfo.user.name;
-                axios.post(Config.API_BASE_URL + "/user/register", {...values, uname})
+                console.log("signup => ", values);
+                axios.post(Config.API_BASE_URL + "/user/register", values)
                 .then(response => {
                     console.log("signup => ", response);
                     axios.post(Config.API_BASE_URL + '/user/login', values)
