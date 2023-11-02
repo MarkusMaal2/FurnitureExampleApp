@@ -12,6 +12,8 @@ import com.facebook.soloader.SoLoader;
 import com.mobiilirakendused.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Arrays;
+import com.facebook.react.shell.MainReactPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -47,6 +49,14 @@ public class MainApplication extends Application implements ReactApplication {
     } else {
       return mReactNativeHost;
     }
+  }
+
+  @Override
+  protected List<ReactPackage> getPackages() {
+    return Arrays.<ReactPackage>asList(
+        new MainReactPackage(),
+        new RNGoogleSigninPackage() // <-- this needs to be in the list
+    );
   }
 
   @Override

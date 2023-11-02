@@ -37,15 +37,14 @@ const SignIn = ({navigation}) => {
         }
         axios.post(Config.API_BASE_URL + "/user/login", values)
         .then(async (response) => {
-            console.log(response?.data?.accessToken);
             const accessToken = response?.data?.accessToken;
             setUser({accessToken});
             if (response?.data?.token) {
-                await AsyncStorage.setItem('auth_token', `${accessToken}`);
+                await AsyncStorage.setItem('auth_token', `${response?.data?.token}`)
             }
         })
         .catch(error => {
-            console.log('login failed => ', error.response.data);
+            console.log(error)
         })
     }
 
